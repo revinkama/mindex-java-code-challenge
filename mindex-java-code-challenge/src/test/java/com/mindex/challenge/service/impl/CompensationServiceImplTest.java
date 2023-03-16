@@ -56,7 +56,7 @@ public class CompensationServiceImplTest {
         compensation.setSalary(123000);
         compensation.setEffectiveDate(Instant.parse("2020-02-22T16:37:23Z"));
 
-        Compensation compensationCall = compensationService.create(compensation);
+        Compensation compensationCall = restTemplate.postForEntity(compensationUrl, compensation, Compensation.class).getBody();
         assertNotNull(compensationCall.getEmployee());
         assertNotNull(compensationCall.getSalary());
         assertNotNull(compensationCall.getEffectiveDate());
