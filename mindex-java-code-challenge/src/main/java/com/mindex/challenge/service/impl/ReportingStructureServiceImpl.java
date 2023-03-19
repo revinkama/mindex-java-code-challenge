@@ -29,12 +29,12 @@ public class ReportingStructureServiceImpl implements ReportStructureService {
 
         Employee employee = employeeRepository.findByEmployeeId(id);
         ReportingStructure reportingStructure = new ReportingStructure(new ArrayList<>(), 0);
-        for (Employee employee1: employee.getDirectReports()) {
+        employee.getDirectReports().stream().forEach(employee1 -> {
             reportingStructure.getEmployees().add(employee1);
-            if (!Objects.isNull(employee1.getDirectReports())){
+            if (!Objects.isNull(employee1.getDirectReports())) {
                 employee1.getDirectReports().forEach(employee2 -> reportingStructure.getEmployees().add(employee2));
             }
-        }
+        });
         reportingStructure.setNumberOfReports(reportingStructure.getEmployees().size());
         return reportingStructure;
 
